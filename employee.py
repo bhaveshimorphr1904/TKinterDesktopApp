@@ -1,10 +1,11 @@
 from tkinter import *
-import employee_backend
+from employee_backend import *
 
 
 class EmployeeApp:
 
     def __init__(self, window):
+        EmployeeDB() # Initilize the DB
         window.wm_title("Employee Book")
 
         self.lblName = Label(window, text="Name")
@@ -89,29 +90,28 @@ class EmployeeApp:
     def ViewCommand(self):
         self.listBox.delete(0, END)
 
-        for row in employee_backend.view():
+        for row in EmployeeDB.view():
             self.listBox.insert(END, row)
 
         self.clearControl()
 
     def SearchCommand(self):
         self.listBox.delete(0, END)
-        for row in employee_backend.search(self.nameText.get(), self.mobileText.get(), self.emailText.get()):
+        for row in EmployeeDB.search(self.nameText.get(), self.mobileText.get(), self.emailText.get()):
             self.listBox.insert(END, row)
         self.clearControl()
 
     def AddCommand(self):
-        employee_backend.insert(
-            self.nameText.get(), self.mobileText.get(), self.emailText.get())
+        EmployeeDB.insert(self.nameText.get(), self.mobileText.get(), self.emailText.get())
         self.SearchCommand()
 
     def UpdateCommand(self):
-        employee_backend.update(
+        EmployeeDB.update(
             selectedRow[0], self.nameText.get(), self.mobileText.get(), self.emailText.get())
         self.SearchCommand()
 
     def DeleteCommand(self):
-        employee_backend.delete(selectedRow[0])
+        EmployeeDB.delete(selectedRow[0])
         self.ViewCommand()
 
 # End : Command Methods
