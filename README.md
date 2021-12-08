@@ -7,9 +7,11 @@ Program to store employee information:
     - Email
 
 User can:
+
     - View All Employees
     - Search Employee
     - Add Employee
     - Update Employee
     - Delet Employee
     - Close The Application
+    
