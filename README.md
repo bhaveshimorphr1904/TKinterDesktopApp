@@ -2,6 +2,7 @@
 Simple Manage Employee Desktop application
 
 Program to store employee information:
+
     - Name,
     - Mobile,
     - Email
