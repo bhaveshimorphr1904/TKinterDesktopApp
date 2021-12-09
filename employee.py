@@ -4,8 +4,9 @@ from employee_backend import *
 
 class EmployeeApp:
 
+    database = EmployeeDB("employee.db") # Initilize the DB
+
     def __init__(self, window):
-        EmployeeDB() # Initilize the DB
         window.wm_title("Employee Book")
 
         self.lblName = Label(window, text="Name")
@@ -90,28 +91,28 @@ class EmployeeApp:
     def ViewCommand(self):
         self.listBox.delete(0, END)
 
-        for row in EmployeeDB.view():
+        for row in self.database.view():
             self.listBox.insert(END, row)
 
         self.clearControl()
 
     def SearchCommand(self):
         self.listBox.delete(0, END)
-        for row in EmployeeDB.search(self.nameText.get(), self.mobileText.get(), self.emailText.get()):
+        for row in self.database.search(self.nameText.get(), self.mobileText.get(), self.emailText.get()):
             self.listBox.insert(END, row)
         self.clearControl()
 
     def AddCommand(self):
-        EmployeeDB.insert(self.nameText.get(), self.mobileText.get(), self.emailText.get())
+        self.database.insert(self.nameText.get(), self.mobileText.get(), self.emailText.get())
         self.SearchCommand()
 
     def UpdateCommand(self):
-        EmployeeDB.update(
+        self.database.update(
             selectedRow[0], self.nameText.get(), self.mobileText.get(), self.emailText.get())
         self.SearchCommand()
 
     def DeleteCommand(self):
-        EmployeeDB.delete(selectedRow[0])
+        self.database.delete(selectedRow[0])
         self.ViewCommand()
 
 # End : Command Methods
